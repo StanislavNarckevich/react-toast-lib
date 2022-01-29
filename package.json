@@ -1,0 +1,30 @@
+{
+  "name": "react-toast-lib",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Stanislav Narkevich",
+  "scripts": {
+    "build": "yarn run build:iife&&yarn run build:cjs&&yarn run build:iife:min",
+    "build:iife": "rollup -c -o build/bundle.iife.js",
+    "build:cjs": "FORMAT=cjs rollup -c -o build/bundle.cjs.js",
+    "build:iife:min": "NODE_ENV=production rollup -c -o build/bundle.iife.min.js"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@babel/plugin-transform-react-jsx": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel": "^6.23.0",
+    "rollup": "^2.66.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-uglify": "^6.0.4"
+  }
+}
