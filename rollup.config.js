@@ -1,8 +1,8 @@
-import commonjs from "rollup-plugin-commonjs";
-import resolve from "rollup-plugin-node-resolve";
-import babel from "rollup-plugin-babel";
-import replace from "rollup-plugin-replace";
-import {uglify} from "rollup-plugin-uglify";
+import commonjs from 'rollup-plugin-commonjs';
+import resolve from 'rollup-plugin-node-resolve';
+import babel from 'rollup-plugin-babel';
+import replace from 'rollup-plugin-replace';
+import { uglify } from 'rollup-plugin-uglify';
 import filesize from 'rollup-plugin-filesize';
 
 const env = process.env.NODE_ENV;
@@ -13,11 +13,11 @@ export default {
     {
       file: 'build/bundle.js',
       format: 'cjs',
-    }
+    },
   ],
   plugins: [
     resolve({
-      extensions: ['.jsx', '.js']
+      extensions: ['.jsx', '.js'],
     }),
     commonjs({
       ignoreGlobal: true,
@@ -32,10 +32,9 @@ export default {
       plugins: ['babel-plugin-styled-components'],
     }),
     replace({
-      'process.env.NODE_ENV' : JSON.stringify(env || 'development')
+      'process.env.NODE_ENV': JSON.stringify(env || 'development'),
     }),
     filesize(),
-    (env === "production" && uglify()),
+    (env === 'production' && uglify()),
   ],
-}
-
+};
