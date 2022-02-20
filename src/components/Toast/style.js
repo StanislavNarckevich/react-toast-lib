@@ -87,14 +87,15 @@ const ToastContainer = styled.div`
   height: 125px;
   background-color: ${(props) => containerBackgrounds[props.status]};
   background-color: ${(props) => props.background};
-  position: absolute;
-  top: ${(props) => props.positionY === 'top' && props.indent + 'px'};
-  bottom: ${(props) => props.positionY === 'bottom' && props.indent + 'px'};
-  left: ${(props) => props.positionX === 'left' && props.indent + 'px'};
-  right: ${(props) => props.positionX === 'right' && props.indent + 'px'};
+   position: relative;
+  // top: ${(props) => props.positionY === 'top' && props.indent + 'px'};
+  // bottom: ${(props) => props.positionY === 'bottom' && props.indent + 'px'};
+  // left: ${(props) => props.positionX === 'left' && props.indent + 'px'};
+  // right: ${(props) => props.positionX === 'right' && props.indent + 'px'};
   display: flex;
   //align-items: center;
   animation: ${(props)=> animations[props.animation]} .5s ease;
+  margin: 20px 0;
 `;
 
 const ToastContent = styled.span`

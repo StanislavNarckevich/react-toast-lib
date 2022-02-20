@@ -4,11 +4,12 @@ import {
   ToastContainer, CloseIcon, ToastIcon, ToastContent, ToastHeader,
 } from './style';
 
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
+
 
 Toast.propTypes = {
   status: PropTypes.oneOf(['warning', 'info', 'success', 'error']).isRequired,
-  // active: PropTypes.bool.isRequired,
+  active: PropTypes.bool.isRequired,
   header: PropTypes.string,
   content: PropTypes.string,
   onDismiss: PropTypes.func,
@@ -27,43 +28,49 @@ Toast.propTypes = {
 };
 
 function Toast({
+                 active = false,
                  status = 'warning',
                  header = 'Toast header',
                  content = 'You need use the props',
                  duration = 1000,
-                 // positionX = 'right',
-                 // positionY = 'bottom',
-                 // indent = 20,
+                 positionX = 'right',
+                 positionY = 'bottom',
+                 indent = 20,
                  background,
                  onDismiss,
                  animation = 'appears_in_right'
                }) {
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log(5)
-      onDismiss();
-    }, duration)
-  }, [])
+    if (active) {
+      setTimeout(() => {
+        console.log(5)
+        onDismiss();
+      }, duration)
+    }
+  }, [active])
 
-  return (
-    <ToastContainer
-      status={status}
-      // positionX={positionX}
-      // positionY={positionY}
-      // indent={indent}
-      background={background}
-      animation={animation}
-    >
-      <ToastIcon status={status}/>
-      <div>
-        <ToastHeader status={status}>{header}</ToastHeader>
-        <ToastContent status={status}>
-          {content}
-        </ToastContent>
-      </div>
-      <CloseIcon status={status} onDismiss={onDismiss}/>
-    </ToastContainer>);
+  alert(uuidv4());
+
+  const toastMarkup = <ToastContainer
+    status={status}
+    positionX={positionX}
+    positionY={positionY}
+    indent={indent}
+    background={background}
+    animation={animation}
+  >
+    <ToastIcon status={status}/>
+    <div>
+      <ToastHeader status={status}>{header}</ToastHeader>
+      <ToastContent status={status}>
+        {content}
+      </ToastContent>
+    </div>
+    <CloseIcon status={status} onDismiss={onDismiss}/>
+  </ToastContainer>;
+
+  return (active && toastMarkup);
 }
 
 export default Toast;

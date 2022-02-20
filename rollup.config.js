@@ -18,6 +18,7 @@ export default {
   plugins: [
     resolve({
       extensions: ['.jsx', '.js'],
+      browser:true
     }),
     commonjs({
       ignoreGlobal: true,
