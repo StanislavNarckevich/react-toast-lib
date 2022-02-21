@@ -32500,7 +32500,9 @@ function ToastList(_ref) {
       positionY = _ref$positionY === void 0 ? 'bottom' : _ref$positionY,
       _ref$indent = _ref.indent,
       indent = _ref$indent === void 0 ? 20 : _ref$indent;
-  return toastList.length ? /*#__PURE__*/react.createElement(ToastListContainer, {
+  var body = document.querySelector('body');
+  console.log(body);
+  return toastList.length ? /*#__PURE__*/reactDom.createPortal( /*#__PURE__*/react.createElement(ToastListContainer, {
     positionX: positionX,
     positionY: positionY,
     indent: indent
@@ -32511,7 +32513,7 @@ function ToastList(_ref) {
       },
       key: toast.id
     }));
-  })) : null;
+  })), body) : null;
 }
 
 var ADD_TOAST = 'ADD_TOAST';
@@ -32552,7 +32554,6 @@ function App() {
   };
 
   var closeToast = function closeToast(id) {
-    console.log('close');
     dispatch({
       type: DELETE_TOAST,
       payload: id
@@ -32561,7 +32562,7 @@ function App() {
 
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("button", {
     onClick: function onClick() {
-      showToast('success', 'Toast Header', "Example toast ".concat(new Date()), 50000, 'zoom_in');
+      showToast('success', 'Toast Header', "Example toast", 5000, 'zoom_in');
     }
   }, "Show toast"), /*#__PURE__*/react.createElement(ToastList, {
     toastList: toastList,
