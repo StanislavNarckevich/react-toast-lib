@@ -1,40 +1,56 @@
 import React from 'react';
+import ReactDOM from "react-dom";
 import PropTypes from 'prop-types';
-import { ToastListContainer } from './style';
+import {ToastListContainer} from './style';
 import Toast from '../Toast';
 
+const body = document.querySelector('body');
+
+function ToastList({
+                     toastList,
+                     onDismiss,
+                     positionX,
+                     positionY,
+                     indent,
+                   }) {
+
+  if (!toastList.length) {
+    return null
+  }
+
+  return (
+        ReactDOM.createPortal(
+        <ToastListContainer
+          positionX={positionX}
+          positionY={positionY}
+          indent={indent}
+        >
+          {
+            toastList.map((toast) => (
+              <Toast
+                {...toast}
+                onDismiss={() => onDismiss(toast.id)}
+                key={toast.id}
+              />
+            ))
+          }
+        </ToastListContainer>
+        , body)
+     );
+}
+
 ToastList.propTypes = {
-  toastList: PropTypes.array,
+  toastList: PropTypes.arrayOf(PropTypes.object),
   positionX: PropTypes.oneOf(['left', 'right']),
   positionY: PropTypes.oneOf(['top', 'bottom']),
   indent: PropTypes.number,
   onDismiss: PropTypes.func,
-  };
+};
 
-function ToastList({
-  toastList, onDismiss, positionX = 'right',
-  positionY = 'bottom',
-  indent = 20,
-}) {
-  return (
-    toastList.length ? (
-      <ToastListContainer
-        positionX={positionX}
-        positionY={positionY}
-        indent={indent}
-      >
-        {
-          toastList.map((toast) => (
-            <Toast
-              {...toast}
-              onDismiss={() => onDismiss(toast.id)}
-              key={toast.id}
-            />
-          ))
-        }
-      </ToastListContainer>
-    ) : null
-  );
-}
+ToastList.defaultProps = {
+  positionX: 'right',
+  positionY: 'bottom',
+  indent: 20,
+};
 
 export default ToastList;

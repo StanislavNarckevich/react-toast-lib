@@ -1,8 +1,10 @@
 import React, {useReducer} from 'react';
-import Toast from './Toast';
-import {ADD_TOAST, DELETE_TOAST} from "../../constants";
+import Toast from '../components/Toast/Toast';
+import {ADD_TOAST, DELETE_TOAST} from "../constants";
 import {v4 as uuidv4} from "uuid";
-import ToastList from "../ToastList";
+import ToastList from "../components/ToastList";
+import {toastListReducer} from "../toastListReducer";
+import {Button} from "../style";
 
 export default {
   title: 'Toast',
@@ -10,17 +12,7 @@ export default {
 };
 
 function Template(args) {
-
-  const [toastList, dispatch] = useReducer((state, action) => {
-    switch (action.type) {
-      case ADD_TOAST:
-        return [...state, action.payload];
-      case DELETE_TOAST:
-        return state.filter((toast) => toast.id !== action.payload);
-      default:
-        return state;
-    }
-  }, []);
+  const [toastList, dispatch] = useReducer(toastListReducer, []);
 
   const showToast = (args) => {
     dispatch({
@@ -40,16 +32,16 @@ function Template(args) {
 
   return (
     <>
-      <button className={'buttonT'} onClick={() => {
+      <Button status={args.status} onClick={() => {
         showToast(args);
       }}
       >
-        Show toast
-      </button>
+        Show {args.status} toast
+      </Button>
 
       <ToastList
-        toastList={toastList}
         {...args}
+        toastList={toastList}
         onDismiss={closeToast}
       />
     </>
@@ -63,9 +55,9 @@ export const Error = Template.bind({});
 export const Default = Template.bind({});
 
 Success.args = {
-  positionX:"right",
-  positionY:"top",
-  indent:20,
+  positionX: "right",
+  positionY: "top",
+  indent: 20,
   content: 'Success toast',
   header: 'Toast header',
   status: 'success',
@@ -74,9 +66,9 @@ Success.args = {
 };
 
 Warning.args = {
-  positionX:"right",
-  positionY:"bottom",
-  indent:20,
+  positionX: "right",
+  positionY: "bottom",
+  indent: 20,
   content: 'Warning toast',
   header: 'Toast header',
   status: 'warning',
@@ -85,9 +77,9 @@ Warning.args = {
 };
 
 Info.args = {
-  positionX:"right",
-  positionY:"top",
-  indent:20,
+  positionX: "right",
+  positionY: "top",
+  indent: 20,
   content: 'Info toast',
   header: 'Toast header',
   status: 'info',
@@ -96,9 +88,9 @@ Info.args = {
 };
 
 Error.args = {
-  positionX:"right",
-  positionY:"bottom",
-  indent:20,
+  positionX: "right",
+  positionY: "bottom",
+  indent: 20,
   content: 'Error toast',
   header: 'Toast header',
   status: 'error',

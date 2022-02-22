@@ -1,9 +1,10 @@
 import React, {useReducer} from 'react';
-import {v4 as uuidv4} from 'uuid';
-import ToastList from './components/ToastList';
-import {ADD_TOAST, DELETE_TOAST} from "./constants";
-import {Button} from "./style";
-import {toastListReducer} from "./toastListReducer";
+import Toast from '../components/Toast/Toast';
+import {ADD_TOAST, DELETE_TOAST} from "../constants";
+import {v4 as uuidv4} from "uuid";
+import ToastList from "../components/ToastList";
+import {toastListReducer} from "../toastListReducer";
+import {Button} from "../style";
 
 const buttons = [
   {
@@ -24,27 +25,22 @@ const buttons = [
   },
 ];
 
-export default function App() {
+export default {
+  title: 'Multi Toast ',
+  component: Toast,
+};
+
+function Template(args) {
   const [toastList, dispatch] = useReducer(toastListReducer, []);
 
-  const showToast = (
-    status,
-    header,
-    content,
-    duration,
-    animation,
-    background,
-  ) => {
+  const showToast = (status, content, args) => {
     dispatch({
       type: ADD_TOAST,
       payload: {
         id: uuidv4(),
         status,
-        header,
         content,
-        duration,
-        animation,
-        background,
+        ...args
       },
     });
   };
@@ -57,9 +53,9 @@ export default function App() {
 
   return (
     <>
-      {buttons.map((button)=> {
+       {buttons.map((button)=> {
         return <Button status={button.status} onClick={() => {
-          showToast(button.status, 'Toast Header', button.content, 5000, 'appears_in_top');
+          showToast(button.status,  button.content, args);
         }}
         >
           Show {button.status} toast
@@ -67,12 +63,21 @@ export default function App() {
       })}
 
       <ToastList
+        {...args}
         toastList={toastList}
         onDismiss={closeToast}
-        positionX="right"
-        positionY="top"
-        indent={20}
       />
     </>
   );
 }
+
+export const MultiToast = Template.bind({});
+
+MultiToast.args = {
+  positionX: "right",
+  positionY: "top",
+  indent: 20,
+  header: 'Toast header',
+  duration: 2000,
+  animation: 'zoom_in',
+};

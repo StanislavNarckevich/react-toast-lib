@@ -1,13 +1,9 @@
-import styled from 'styled-components';
 import React from 'react';
+import PropTypes from "prop-types";
 import {
   BsQuestionCircle, IoWarningOutline, VscError, VscPass,
 } from 'react-icons/all';
-
-const Icon = styled.div`
-    margin: 20px;
-    align-self: center;
-`;
+import {Icon} from "./style";
 
 const statusIcon = {
   info: <BsQuestionCircle size={40} color="white" />,
@@ -22,6 +18,10 @@ const ToastIcon = function ({ status }) {
       {statusIcon[status]}
     </Icon>
   );
+};
+
+ToastIcon.propTypes = {
+  status: PropTypes.string
 };
 
 export default ToastIcon;

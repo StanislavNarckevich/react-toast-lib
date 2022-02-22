@@ -8,14 +8,14 @@
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "airbnb",
-        "airbnb/hooks",
-        "plugin:cypress/recomended"
+        "airbnb/hooks"
+//        "plugin:cypress/recomended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 13,
+        "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "plugins": [

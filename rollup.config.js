@@ -11,7 +11,7 @@ export default {
   input: 'src/index.jsx',
   output: [
     {
-      file: 'build/bundle.js',
+      file: 'public/bundle.js',
       format: 'cjs',
     },
   ],

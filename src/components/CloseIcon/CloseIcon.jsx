@@ -1,20 +1,19 @@
-import styled from 'styled-components';
-import { VscChromeClose } from 'react-icons/all';
 import React from 'react';
+import PropTypes from "prop-types";
+import { VscChromeClose } from 'react-icons/all';
+import {Icon} from "./style";
 
-const Icon = styled.div`
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
-  `;
-
-const CloseIcon = function ({ status, onDismiss }) {
+function CloseIcon({ status, onDismiss }) {
   return (
     <Icon onClick={onDismiss}>
       <VscChromeClose size={25} color={status === 'warning' ? 'black' : 'white'} />
     </Icon>
   );
-};
+}
+
+CloseIcon.propTypes = {
+  status: PropTypes.string,
+  onDismiss: PropTypes.func
+}
 
 export default CloseIcon;
