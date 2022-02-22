@@ -32244,7 +32244,7 @@ function v(){return (v=Object.assign||function(e){for(var t=1;t<arguments.length
 
 var ToastListContainer = styled.div.attrs(function (props) {
   return {
-    id: "toast-container"
+    id: "toast-list_container"
   };
 }).withConfig({
   displayName: "style__ToastListContainer",
@@ -32278,7 +32278,11 @@ var containerBackgrounds = {
   warning: '#F4E048',
   error: '#E25837'
 };
-var ToastContainer = styled.div.withConfig({
+var ToastContainer = styled.div.attrs(function (props) {
+  return {
+    id: "toast"
+  };
+}).withConfig({
   displayName: "style__ToastContainer",
   componentId: "sc-1ra82nq-0"
 })(["width:360px;border-radius:15px;height:125px;background-color:", ";background-color:", ";position:relative;display:flex;animation:", " .5s ease;margin:20px 0;"], function (props) {
@@ -32288,18 +32292,26 @@ var ToastContainer = styled.div.withConfig({
 }, function (props) {
   return animations[props.animation];
 });
-var ToastContent = styled.span.withConfig({
+var ToastContent = styled.span.attrs(function (props) {
+  return {
+    id: "toast_content"
+  };
+}).withConfig({
   displayName: "style__ToastContent",
   componentId: "sc-1ra82nq-1"
 })(["font-size:20px;color:", ";"], function (props) {
   return props.status === 'warning' ? '#000' : '#fff';
 });
-var ToastHeader = styled.p.withConfig({
+var ToastHeader = styled.p.attrs(function (props) {
+  return {
+    id: "toast_header"
+  };
+}).withConfig({
   displayName: "style__ToastHeader",
   componentId: "sc-1ra82nq-2"
 })(["font-size:26px;color:", ";margin-bottom:15px;"], function (props) {
   return props.status === 'warning' ? '#000' : '#fff';
-}); // const CloseIcon = function ({ status }) {
+});
 
 var DefaultContext = {
   color: undefined,
@@ -32400,7 +32412,11 @@ function VscChromeClose (props) {
   return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 16 16","fill":"currentColor"},"child":[{"tag":"path","attr":{"d":"M6.27 10.87h.71l4.56-4.56-.71-.71-4.2 4.21-1.92-1.92L4 8.6l2.27 2.27z"}},{"tag":"path","attr":{"fillRule":"evenodd","clipRule":"evenodd","d":"M8.6 1c1.6.1 3.1.9 4.2 2 1.3 1.4 2 3.1 2 5.1 0 1.6-.6 3.1-1.6 4.4-1 1.2-2.4 2.1-4 2.4-1.6.3-3.2.1-4.6-.7-1.4-.8-2.5-2-3.1-3.5C.9 9.2.8 7.5 1.3 6c.5-1.6 1.4-2.9 2.8-3.8C5.4 1.3 7 .9 8.6 1zm.5 12.9c1.3-.3 2.5-1 3.4-2.1.8-1.1 1.3-2.4 1.2-3.8 0-1.6-.6-3.2-1.7-4.3-1-1-2.2-1.6-3.6-1.7-1.3-.1-2.7.2-3.8 1-1.1.8-1.9 1.9-2.3 3.3-.4 1.3-.4 2.7.2 4 .6 1.3 1.5 2.3 2.7 3 1.2.7 2.6.9 3.9.6z"}}]})(props);
 }
 
-var Icon$1 = styled.div.withConfig({
+var Icon$1 = styled.div.attrs(function (props) {
+  return {
+    id: "close_icon"
+  };
+}).withConfig({
   displayName: "CloseIcon__Icon",
   componentId: "sc-4s08al-0"
 })(["position:absolute;right:10px;top:10px;cursor:pointer;"]);
@@ -32416,7 +32432,11 @@ var CloseIcon = function CloseIcon(_ref) {
   }));
 };
 
-var Icon = styled.div.withConfig({
+var Icon = styled.div.attrs(function (props) {
+  return {
+    id: "toast_icon"
+  };
+}).withConfig({
   displayName: "ToastIcon__Icon",
   componentId: "sc-1wuyf9c-0"
 })(["margin:20px;align-self:center;"]);
