@@ -32272,12 +32272,15 @@ var animations = {
   zoom_in: zoom_in
 };
 
+var ADD_TOAST = 'ADD_TOAST';
+var DELETE_TOAST = 'DELETE_TOAST';
 var containerBackgrounds = {
   info: '#9A40D3',
   success: '#37E29A',
   warning: '#F4E048',
   error: '#E25837'
 };
+
 var ToastContainer = styled.div.attrs(function (props) {
   return {
     id: "toast"
@@ -32417,11 +32420,11 @@ var Icon$1 = styled.div.attrs(function (props) {
     id: "close_icon"
   };
 }).withConfig({
-  displayName: "CloseIcon__Icon",
-  componentId: "sc-4s08al-0"
+  displayName: "style__Icon",
+  componentId: "sc-1mx17yf-0"
 })(["position:absolute;right:10px;top:10px;cursor:pointer;"]);
 
-var CloseIcon = function CloseIcon(_ref) {
+function CloseIcon(_ref) {
   var status = _ref.status,
       onDismiss = _ref.onDismiss;
   return /*#__PURE__*/react.createElement(Icon$1, {
@@ -32430,6 +32433,11 @@ var CloseIcon = function CloseIcon(_ref) {
     size: 25,
     color: status === 'warning' ? 'black' : 'white'
   }));
+}
+
+CloseIcon.propTypes = {
+  status: PropTypes.string,
+  onDismiss: PropTypes.func
 };
 
 var Icon = styled.div.attrs(function (props) {
@@ -32437,9 +32445,10 @@ var Icon = styled.div.attrs(function (props) {
     id: "toast_icon"
   };
 }).withConfig({
-  displayName: "ToastIcon__Icon",
-  componentId: "sc-1wuyf9c-0"
+  displayName: "style__Icon",
+  componentId: "sc-19v9olx-0"
 })(["margin:20px;align-self:center;"]);
+
 var statusIcon = {
   info: /*#__PURE__*/react.createElement(BsQuestionCircle, {
     size: 40,
@@ -32463,33 +32472,25 @@ var ToastIcon = function ToastIcon(_ref) {
   return /*#__PURE__*/react.createElement(Icon, null, statusIcon[status]);
 };
 
-Toast.propTypes = {
-  status: PropTypes.oneOf(['warning', 'info', 'success', 'error']).isRequired,
-  header: PropTypes.string,
-  content: PropTypes.string,
-  onDismiss: PropTypes.func,
-  duration: PropTypes.number,
-  background: PropTypes.string,
-  animation: PropTypes.oneOf(['appears_in_right', 'appears_in_left', 'appears_in_top', 'appears_in_bottom', 'zoom_in'])
+ToastIcon.propTypes = {
+  status: PropTypes.string
 };
 
 function Toast(_ref) {
-  var _ref$status = _ref.status,
-      status = _ref$status === void 0 ? 'warning' : _ref$status,
-      _ref$header = _ref.header,
-      header = _ref$header === void 0 ? 'Toast header' : _ref$header,
-      _ref$content = _ref.content,
-      content = _ref$content === void 0 ? 'You need use the props' : _ref$content,
-      _ref$duration = _ref.duration,
-      duration = _ref$duration === void 0 ? 3000 : _ref$duration,
+  var status = _ref.status,
+      header = _ref.header,
+      content = _ref.content,
+      duration = _ref.duration,
       background = _ref.background,
       onDismiss = _ref.onDismiss,
-      _ref$animation = _ref.animation,
-      animation = _ref$animation === void 0 ? 'appears_in_right' : _ref$animation;
+      animation = _ref.animation;
   react_21(function () {
-    setTimeout(function () {
+    var autoClose = setTimeout(function () {
       onDismiss();
     }, duration);
+    return function () {
+      clearTimeout(autoClose);
+    };
   }, []);
   return /*#__PURE__*/react.createElement(ToastContainer, {
     status: status,
@@ -32507,26 +32508,37 @@ function Toast(_ref) {
   }));
 }
 
-ToastList.propTypes = {
-  toastList: PropTypes.array,
-  positionX: PropTypes.oneOf(['left', 'right']),
-  positionY: PropTypes.oneOf(['top', 'bottom']),
-  indent: PropTypes.number,
-  onDismiss: PropTypes.func
+Toast.propTypes = {
+  status: PropTypes.oneOf(['warning', 'info', 'success', 'error']).isRequired,
+  header: PropTypes.string,
+  content: PropTypes.string,
+  onDismiss: PropTypes.func,
+  duration: PropTypes.number,
+  background: PropTypes.string,
+  animation: PropTypes.oneOf(['appears_in_right', 'appears_in_left', 'appears_in_top', 'appears_in_bottom', 'zoom_in'])
 };
+Toast.defaultProps = {
+  status: 'warning',
+  header: 'Toast header',
+  content: 'You need use the props',
+  duration: 3000,
+  animation: 'appears_in_right'
+};
+
+var body = document.querySelector('body');
 
 function ToastList(_ref) {
   var toastList = _ref.toastList,
       _onDismiss = _ref.onDismiss,
-      _ref$positionX = _ref.positionX,
-      positionX = _ref$positionX === void 0 ? 'right' : _ref$positionX,
-      _ref$positionY = _ref.positionY,
-      positionY = _ref$positionY === void 0 ? 'bottom' : _ref$positionY,
-      _ref$indent = _ref.indent,
-      indent = _ref$indent === void 0 ? 20 : _ref$indent;
-  var body = document.querySelector('body');
-  console.log(body);
-  return toastList.length ? /*#__PURE__*/reactDom.createPortal( /*#__PURE__*/react.createElement(ToastListContainer, {
+      positionX = _ref.positionX,
+      positionY = _ref.positionY,
+      indent = _ref.indent;
+
+  if (!toastList.length) {
+    return null;
+  }
+
+  return /*#__PURE__*/reactDom.createPortal( /*#__PURE__*/react.createElement(ToastListContainer, {
     positionX: positionX,
     positionY: positionY,
     indent: indent
@@ -32537,27 +32549,59 @@ function ToastList(_ref) {
       },
       key: toast.id
     }));
-  })), body) : null;
+  })), body);
 }
 
-var ADD_TOAST = 'ADD_TOAST';
-var DELETE_TOAST = 'DELETE_TOAST';
+ToastList.propTypes = {
+  toastList: PropTypes.arrayOf(PropTypes.object),
+  positionX: PropTypes.oneOf(['left', 'right']),
+  positionY: PropTypes.oneOf(['top', 'bottom']),
+  indent: PropTypes.number,
+  onDismiss: PropTypes.func
+};
+ToastList.defaultProps = {
+  positionX: 'right',
+  positionY: 'bottom',
+  indent: 20
+};
 
+var Button = styled.button.withConfig({
+  displayName: "style__Button",
+  componentId: "sc-f8kqhv-0"
+})(["display:block;margin:20px 0;background-color:", ";padding:20px;width:15rem;font-size:20px;border-radius:40px;font-family:\"Roboto\",sans-serif;border:none;cursor:pointer;transition:0.1s ease;&:active{transform:scale(1.035);}"], function (props) {
+  return containerBackgrounds[props.status];
+});
+
+var toastListReducer = function toastListReducer(state, action) {
+  switch (action.type) {
+    case ADD_TOAST:
+      return [].concat(_toConsumableArray(state), [action.payload]);
+
+    case DELETE_TOAST:
+      return state.filter(function (toast) {
+        return toast.id !== action.payload;
+      });
+
+    default:
+      return state;
+  }
+};
+
+var buttons = [{
+  status: 'success',
+  content: 'Success toast'
+}, {
+  status: 'info',
+  content: 'Info toast'
+}, {
+  status: 'warning',
+  content: 'Warning toast'
+}, {
+  status: 'error',
+  content: 'Error toast'
+}];
 function App() {
-  var _useReducer = react_25(function (state, action) {
-    switch (action.type) {
-      case ADD_TOAST:
-        return [].concat(_toConsumableArray(state), [action.payload]);
-
-      case DELETE_TOAST:
-        return state.filter(function (toast) {
-          return toast.id !== action.payload;
-        });
-
-      default:
-        return state;
-    }
-  }, []),
+  var _useReducer = react_25(toastListReducer, []),
       _useReducer2 = _slicedToArray(_useReducer, 2),
       toastList = _useReducer2[0],
       dispatch = _useReducer2[1];
@@ -32584,11 +32628,14 @@ function App() {
     });
   };
 
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("button", {
-    onClick: function onClick() {
-      showToast('success', 'Toast Header', "Example toast", 5000, 'zoom_in');
-    }
-  }, "Show toast"), /*#__PURE__*/react.createElement(ToastList, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, buttons.map(function (button) {
+    return /*#__PURE__*/react.createElement(Button, {
+      status: button.status,
+      onClick: function onClick() {
+        showToast(button.status, 'Toast Header', button.content, 5000, 'appears_in_top');
+      }
+    }, "Show ", button.status, " toast");
+  }), /*#__PURE__*/react.createElement(ToastList, {
     toastList: toastList,
     onDismiss: closeToast,
     positionX: "right",
