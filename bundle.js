@@ -32244,7 +32244,7 @@ function v(){return (v=Object.assign||function(e){for(var t=1;t<arguments.length
 
 var ToastListContainer = styled.div.attrs(function (props) {
   return {
-    'data-type': "Toast container"
+    id: "toast-container"
   };
 }).withConfig({
   displayName: "style__ToastListContainer",
@@ -32566,7 +32566,7 @@ function App() {
 
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("button", {
     onClick: function onClick() {
-      showToast('success', 'Toast Header', "Example toast", 20000, 'zoom_in');
+      showToast('success', 'Toast Header', "Example toast", 5000, 'zoom_in');
     }
   }, "Show toast"), /*#__PURE__*/react.createElement(ToastList, {
     toastList: toastList,
