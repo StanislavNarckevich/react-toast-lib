@@ -1,2 +1,4 @@
 build/*.js
 src/stories
+storybook-static
+public

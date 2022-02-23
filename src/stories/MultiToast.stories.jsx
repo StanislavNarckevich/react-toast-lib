@@ -4,7 +4,7 @@ import {ADD_TOAST, DELETE_TOAST} from "../constants";
 import {v4 as uuidv4} from "uuid";
 import ToastList from "../components/ToastList";
 import {toastListReducer} from "../toastListReducer";
-import {Button} from "../style";
+import {Button} from "../components/App/style";
 
 const buttons = [
   {

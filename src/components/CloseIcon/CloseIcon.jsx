@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { VscChromeClose } from 'react-icons/all';
-import {Icon} from "./style";
+import { Icon } from './style';
 
 function CloseIcon({ status, onDismiss }) {
   return (
@@ -13,7 +13,7 @@ function CloseIcon({ status, onDismiss }) {
 
 CloseIcon.propTypes = {
   status: PropTypes.string,
-  onDismiss: PropTypes.func
-}
+  onDismiss: PropTypes.func,
+};
 
 export default CloseIcon;

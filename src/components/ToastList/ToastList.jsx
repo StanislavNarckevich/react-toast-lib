@@ -1,25 +1,26 @@
 import React from 'react';
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {ToastListContainer} from './style';
+import { ToastListContainer } from './style';
 import Toast from '../Toast';
+import ErrorBoundary from '../ErrorBoundary';
 
 const body = document.querySelector('body');
 
 function ToastList({
-                     toastList,
-                     onDismiss,
-                     positionX,
-                     positionY,
-                     indent,
-                   }) {
-
+  toastList,
+  onDismiss,
+  positionX,
+  positionY,
+  indent,
+}) {
   if (!toastList.length) {
-    return null
+    return null;
   }
 
   return (
-        ReactDOM.createPortal(
+    ReactDOM.createPortal(
+      <ErrorBoundary>
         <ToastListContainer
           positionX={positionX}
           positionY={positionY}
@@ -35,8 +36,10 @@ function ToastList({
             ))
           }
         </ToastListContainer>
-        , body)
-     );
+      </ErrorBoundary>,
+      body,
+    )
+  );
 }
 
 ToastList.propTypes = {

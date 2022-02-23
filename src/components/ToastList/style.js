@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const ToastListContainer = styled.div.attrs(props => ({
-  id: "toast-list_container"
+export const ToastListContainer = styled.div.attrs((props) => ({
+  id: 'toast-list_container',
 }))`
   margin: -20px 0;
   position: fixed;

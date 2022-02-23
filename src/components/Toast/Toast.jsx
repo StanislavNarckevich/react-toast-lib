@@ -6,21 +6,21 @@ import ToastIcon from '../ToastIcon';
 
 function Toast({
   status,
-  header ,
+  header,
   content,
-  duration ,
+  duration,
   background,
   onDismiss,
-  animation ,
+  animation,
 }) {
   useEffect(() => {
-   const autoClose = setTimeout(() => {
+    const autoClose = setTimeout(() => {
       onDismiss();
     }, duration);
 
-   return ()=> {
+    return () => {
       clearTimeout(autoClose);
-    }
+    };
   }, []);
 
   return (
@@ -58,11 +58,11 @@ Toast.propTypes = {
 };
 
 Toast.defaultProps = {
-  status : 'warning',
-  header :'Toast header',
-  content : 'You need use the props',
-  duration : 3000,
-  animation : 'appears_in_right',
-}
+  status: 'warning',
+  header: 'Toast header',
+  content: 'You need use the props',
+  duration: 3000,
+  animation: 'appears_in_right',
+};
 
 export default Toast;

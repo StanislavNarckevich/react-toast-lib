@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const Icon = styled.div.attrs(props => ({
-  id: "close_icon"
+export const Icon = styled.div.attrs((props) => ({
+  id: 'close_icon',
 }))`
     position: absolute;
     right: 10px;

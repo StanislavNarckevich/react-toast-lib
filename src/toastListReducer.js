@@ -1,4 +1,4 @@
-import {ADD_TOAST, DELETE_TOAST} from "./constants";
+import { ADD_TOAST, DELETE_TOAST } from './constants';
 
 export const toastListReducer = (state, action) => {
   switch (action.type) {
@@ -9,4 +9,4 @@ export const toastListReducer = (state, action) => {
     default:
       return state;
   }
-}
+};

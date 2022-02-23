@@ -1,26 +1,30 @@
-import React, {useReducer} from 'react';
-import {v4 as uuidv4} from 'uuid';
-import ToastList from './components/ToastList';
-import {ADD_TOAST, DELETE_TOAST} from "./constants";
-import {Button} from "./style";
-import {toastListReducer} from "./toastListReducer";
+import React, { useReducer } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import ToastList from '../ToastList';
+import { ADD_TOAST, DELETE_TOAST } from '../../constants';
+import { Button } from './style';
+import { toastListReducer } from '../../toastListReducer';
 
 const buttons = [
   {
     status: 'success',
-    content: 'Success toast'
+    content: 'Success toast',
+    id: 'button_success',
   },
   {
     status: 'info',
-    content: 'Info toast'
+    content: 'Info toast',
+    id: 'button_info',
   },
   {
     status: 'warning',
-    content: 'Warning toast'
+    content: 'Warning toast',
+    id: 'button_warning',
   },
   {
     status: 'error',
-    content: 'Error toast'
+    content: 'Error toast',
+    id: 'button_error',
   },
 ];
 
@@ -57,14 +61,22 @@ export default function App() {
 
   return (
     <>
-      {buttons.map((button)=> {
-        return <Button status={button.status} onClick={() => {
-          showToast(button.status, 'Toast Header', button.content, 5000, 'appears_in_top');
-        }}
+      {buttons.map((button) => (
+        <Button
+          key={button.id}
+          id={button.id}
+          status={button.status}
+          onClick={() => {
+            showToast(button.status, 'Toast Header', button.content, 5000, 'appears_in_top');
+          }}
         >
-          Show {button.status} toast
+          Show
+          {' '}
+          {button.status}
+          {' '}
+          toast
         </Button>
-      })}
+      ))}
 
       <ToastList
         toastList={toastList}

@@ -1,7 +1,9 @@
-import styled from "styled-components";
-import {containerBackgrounds} from "./constants";
+import styled from 'styled-components';
+import { containerBackgrounds } from '../../constants';
 
-export const Button = styled.button`
+export const Button = styled.button.attrs((props) => {
+  props.id;
+})`
   display: block;
   margin: 20px 0;
   background-color: ${(props) => containerBackgrounds[props.status]};
@@ -17,4 +19,4 @@ export const Button = styled.button`
   &:active{
     transform: scale(1.035);
   }
-`
+`;

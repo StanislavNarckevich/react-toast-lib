@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import {
   BsQuestionCircle, IoWarningOutline, VscError, VscPass,
 } from 'react-icons/all';
-import {Icon} from "./style";
+import { Icon } from './style';
 
 const statusIcon = {
   info: <BsQuestionCircle size={40} color="white" />,
@@ -21,7 +21,7 @@ const ToastIcon = function ({ status }) {
 };
 
 ToastIcon.propTypes = {
-  status: PropTypes.string
+  status: PropTypes.string,
 };
 
 export default ToastIcon;
